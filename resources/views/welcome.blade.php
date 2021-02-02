@@ -18,7 +18,7 @@
 
   <!-- Vendor CSS Files -->
 
-  <link href="{{url ('/css/font-awesome.min.css')}}" rel="stylesheet">
+  <link href="{{url ('/css/fontawesome.min.css')}}" rel="stylesheet">
   <link href="{{url ('/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link href="{{url ('/vendor/icofont/icofont.min.css')}}" rel="stylesheet">
   <link href="{{url ('/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -136,54 +136,56 @@
       </div>
     </section><!-- End About Section -->
 
-<Script>
-  function convertDate(e){var t,o=new Date(e);return[(t=o.getDate(),t<10?"0"+t:t)].join("/")}function getMesExtenso(e){var t=new Array(12);return t[0]="janeiro",t[1]="fevereiro",t[2]="março",t[3]="abril",t[4]="maio",t[5]="junho",t[6]="julho",t[7]="agosto",t[8]="setembro",t[9]="outubro",t[10]="novembro",t[11]="dezembro",t[e]}jQuery(document).ready(function(e){var t=new Date,o=t.setDate(t.getDate()+16),n=t.setDate(t.getDate()+2),r=getMesExtenso(t.getMonth());if(convertDate(o)>convertDate(n))var a="<strong>"+convertDate(n)+"</strong> e <strong>"+convertDate(o)+" de "+r+"</strong>";else{if(null==(s=getMesExtenso(t.getMonth()+1)))var s=getMesExtenso(t.getMonth()-11);a="<strong>"+convertDate(n)+" de "+r+"</strong> e <strong>"+convertDate(o)+" de "+s+"</strong>"}e.getJSON("https://wtfismyip.com/json",function(t){var o=(t=t.YourFuckingLocation).replace(", Brazil","");e(".custom-address").html("<font color='#226a7c'><b>Frete Grátis</b></font> para <strong><font color='#226a7c'>"+o+" e Região</font></strong>"),e(".shipping-estimated").html("Entrega estimada entre "+a-5"."),e(".shipping-preview-loading").hide()})});
-  </script>
+
 
     <!-- ======= Skills Section ======= -->
     <section id="skills" class="skills section-bg">
       <div class="container">
 
         <div class="section-title">
-          <h2>Habilidades</h2>
-          <p>Aqui nessa seção você encontrará as linguagens com as quais já trabalhei ou tenho alguma experiência.</p>
-          <ul class="list-inline dev-icons">
-            <li class="list-inline-item" title="HTML5">
-              <i class="fas fa-laravel"></i>
-            </li>
-            <li class="list-inline-item" title="CSS3">
-                <i class="fab fa-css3-alt"></i>
-            </li>
-            <li class="list-inline-item" title="JAVASCRIPT">
-                <i class="fab fa-js-square"></i>
-            </li>
-            <li class="list-inline-item" title="SASS">
-                <i class="fab fa-sass"></i>
-            </li>
-            <li class="list-inline-item" title="LESS">
-                <i class="fab fa-less"></i>
-            </li>
-            <li class="list-inline-item" title="WORDPRESS">
-                <i class="fab fa-wordpress"></i>
-            </li>
-            <li class="list-inline-item" title="PHP">
-                <i class="fab fa-php"></i>
-            </li>
-            <li class="list-inline-item" title="LARAVEL">
-                <i class="fab fa-laravel"></i>
-            </li>
-            <li class="list-inline-item" title="LINUX">
-                <i class="fab fa-linux"></i>
-            </li>
-            <li class="list-inline-item" title="AMAZON AWS">
-                <i class="fab fa-aws"></i>
-            </li>
-        </ul>
+            <h2 class="mb-3">Habiilidades</h2>
+          <p>Linguagens de Programação &amp; Ferramentas</p></div>
+            <ul class="list-inline dev-icons">
+                <li class="list-inline-item" title="HTML5">
+                    <i class="fab fa-html5 fa-3x"></i>
+                </li>
+                <li class="list-inline-item" title="CSS3">
+                    <i class="fab fa-css3-alt fa-3x"></i>
+                </li>
+                <li class="list-inline-item" title="JAVASCRIPT">
+                    <i class="fab fa-js-square fa-3x"></i>
+                </li>
+                <li class="list-inline-item" title="WORDPRESS">
+                    <i class="fab fa-wordpress fa-3x"></i>
+                </li>
+                <li class="list-inline-item" title="PHP">
+                    <i class="fab fa-php fa-3x"></i>
+                </li>
+                <li class="list-inline-item" title="LARAVEL">
+                    <i class="fab fa-laravel fa-3x"></i>
+                </li>
+                <li class="list-inline-item" title="LINUX">
+                    <i class="fab fa-linux fa-3x"></i>
+                </li>
+                <li class="list-inline-item" title="AMAZON AWS">
+                    <i class="fab fa-aws fa-3x"></i>
+                </li>
+            </ul>
+
+            <div class="subheading mb-3">Fluxo de trabalho</div>
+            <ul class="fa-ul mb-0">
+
+                <li>
+                    <i class="fa-li fa fa-check"></i>
+                    Teste em Navegadores &amp; Depuração</li>
+                <li>
+                    <i class="fa-li fa fa-check"></i>
+                    Equipes Multifuncionais</li>
+                <li>
+                    <i class="fa-li fa fa-check"></i>
+                    Desenvolvimento Ágil com Scrum/ITIL</li>
+            </ul>
         </div>
-
-
-
-              </div>
 
     </section><!-- End Skills Section -->
 
