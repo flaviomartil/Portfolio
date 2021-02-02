@@ -1,4 +1,5 @@
-<p align="center">Portfolio feito em Laravel<img src="https://miro.medium.com/max/700/1*QckeZGe8uhX5Hkx0N8HmTg.png"></p>
+<img src="https://miro.medium.com/max/700/1*QckeZGe8uhX5Hkx0N8HmTg.png">
+<h4>Portfolio feito em Laravel</h4>
 
 
 ## Sobre o projeto
