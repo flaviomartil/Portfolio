@@ -24,4 +24,5 @@ Route::get('/', 'InicioController@index');
 Route::post('/sendEmail','InicioController@sendEmail');
 
 Route::get('/admin/CreateProject','adminController@projectCreate');
+Route::get('/admin/delete/{id}','adminController@destroy');
 Route::post('/admin/createNow','adminController@create');

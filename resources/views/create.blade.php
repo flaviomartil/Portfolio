@@ -28,7 +28,11 @@
                           </div>
                         <div class="form-group">
                           <label for="imagem">Local da imagem do seu projeto</label>
-                          <input type="text" class="form-control" id="imagem" name="imagem" placeholder="Senha">
+                          <input type="text" class="form-control" id="imagem" name="imagem" placeholder="imagem">
+                        </div>
+                        <div class="form-group">
+                          <label for="imagem">Link do projeto</label>
+                          <input type="text" class="form-control" id="link" name="link" placeholder="link">
                         </div>
                         <div class="form-group">
                         <select name="categoria_id" class="custom-select custom-select-lg mb-3">

@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{url ('/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{url ('/css/fontawesome.min.css')}}" rel="stylesheet">
     <link href="{{url ('/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{url ('/vendor/icofont/icofont.min.css')}}" rel="stylesheet">
     <link href="{{url ('/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -51,8 +51,6 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                           <p><a href="{{ route('login') }}">Login</a></p>
-                            <p><a href="{{ route('register') }}">Register</a></p>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

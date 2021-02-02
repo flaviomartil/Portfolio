@@ -28,6 +28,7 @@ class adminController extends Controller
      */
     public function create(Request $request)
     {
+
         $model = User::find(Auth::user()->id);
         $tipo = $model->type_user;
         if($tipo == 2){
@@ -36,14 +37,14 @@ class adminController extends Controller
             $projeto->nome = $request->nome;
             $projeto->descricao = $request->descricao;
             $projeto->imagem = $request->imagem;
-            $projeto->link = $request->imagem;
+            $projeto->link = $request->link;
             $projeto->categoria_id = $request->categoria_id;
 
             $projeto->save();
-            return view('home');
+            return redirect()->route('admin');
 
         }else{
-            return view('home');
+            return redirect()->route('home');
         }
     }
     public function projectCreate()
@@ -112,6 +113,21 @@ class adminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $modelUser = User::find(Auth::user()->id);
+        $tipo = $modelUser->type_user;
+        if($tipo === 2){
+        $model = projetos::findOrFail($id);
+        if($model){
+        $model->delete();
+        return redirect()->route('admin');
+
+    }else{
+        return redirect()->route('admin');
     }
+}else {
+    return redirect()->route('home');
 }
+    }
+
+    }
+
