@@ -1,4 +1,4 @@
-<p align="center"><img src="https://seeklogo.com/images/L/laravel-logo-9B01588B1F-seeklogo.com.png">Portfolio feito em Laravel</p>
+<p align="center">Portfolio feito em Laravel<img src="https://miro.medium.com/max/700/1*QckeZGe8uhX5Hkx0N8HmTg.png"></p>
 
 
 ## Sobre o projeto
