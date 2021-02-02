@@ -14,7 +14,7 @@ class AdminAdd extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-         $table->Integer('type_user');
+         $table->Integer('type_user')->default('1');
         });
     }
 
