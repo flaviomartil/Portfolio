@@ -1,5 +1,5 @@
 <img src="https://miro.medium.com/max/700/1*QckeZGe8uhX5Hkx0N8HmTg.png">
-<h4>Portfolio feito em Laravel</h4>
+<h1>Portfolio feito em Laravel</h1>
 
 
 ## Sobre o projeto
