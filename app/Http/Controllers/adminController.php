@@ -6,6 +6,7 @@ use App\projetos;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\categorias;
+use App\sobreMim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,46 @@ class adminController extends Controller
     public function index()
     {
         //
+    }
+    public function editAbout()
+    {
+        $model = User::find(Auth::user()->id);
+        $tipo = $model->type_user;
+        if($tipo == 2){
+    $model = DB::select("select id,nome,website,telefone,cidade_atual,idade,email,email_profissional,freelance_status,aniversario,endereco,cep   from sobre_mims where id = 1");
+    $about = $model[0];
+    return view('edit_about',compact('about'));
+    }else{
+        return redirect()->route('welcome');
+    }
+}
+    public function SaveAbout(Request $request)
+    {
+        $model = User::find(Auth::user()->id);
+        $tipo = $model->type_user;
+        if($tipo == 2){
+    $id = 1;
+    $about = sobreMim::findOrFail($id);
+    $about->nome = $request->nome;
+    $about->website = $request->website;
+    $about->telefone = $request->telefone;
+    $about->telefone = $request->telefone;
+    $about->cidade_atual = $request->cidade_atual;
+    $about->idade = $request->idade;
+    $about->email = $request->email;
+    $about->email_profissional = $request->email_profissional;
+    $about->freelance_status = $request->freelance_status;
+    $about->aniversario = $request->aniversario;
+    $about->endereco = $request->endereco;
+    $about->cep = $request->cep;
+
+
+    if($about->save()){
+      return redirect()->route('admin');
+        }else{
+            return redirect()->route('admin');
+        }
+        }
     }
 
     /**
@@ -66,9 +107,9 @@ class adminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(request $request)
     {
-        //
+
     }
 
     /**
@@ -79,8 +120,20 @@ class adminController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find(Auth::user()->id);
+        $tipo = $user->type_user;
+        if($tipo == 2){
+        $categorias = categorias::get();
+        $model = DB::table('projetos')
+        ->join('categorias', 'categoria_id', '=', 'categorias.id')
+        ->select('projetos.id','nome','nome_categoria','imagem','descricao','link')
+        ->where("projetos.id",$id)
+        ->first();
+
+
+        return view('edit_project',compact('model','categorias','id'));
     }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -102,9 +155,24 @@ class adminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $model = User::find(Auth::user()->id);
+        $tipo = $model->type_user;
+        if($tipo == 2){
+        $projeto = projetos::findOrFail($id);
+        $projeto->nome = $request->nome;
+        $projeto->descricao = $request->descricao;
+        $projeto->imagem = $request->imagem;
+        $projeto->link = $request->link;
+        $projeto->categoria_id = $request->categoria_id;
 
+        if($projeto->save()){
+            return redirect()->route('admin');
+
+    }else{
+        return redirect()->route('admin');
+    }
+    }
+}
     /**
      * Remove the specified resource from storage.
      *

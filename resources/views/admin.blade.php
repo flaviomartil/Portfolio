@@ -38,14 +38,15 @@
 
                         <td>{{$projeto->nome}}</td>
                         <td>{{$projeto->descricao}}</td>
-                        <td></td>
+                        <td>{{$projeto->nome_categoria}}</td>
                         <td>{{$projeto->imagem}}</td>
                         <td>{{$projeto->link}}</td>
-                        <td><a class="btn btn-danger" href="/admin/delete/{{$projeto->id}}" role="button">Deletar</a></td>
+                        <td><a class="btn btn-warning" href="/admin/editar/{{$projeto->id}}" role="button">Editar !</a><a class="btn btn-danger" href="/admin/delete/{{$projeto->id}}" role="button">Deletar</a></td>
                       </tr>
                       @endforeach
 
                    <br><a class="btn btn-primary" href="{{url ('/admin/CreateProject')}}" role="button">Criar projeto</a>
+                   <a class="btn btn-warning" href="{{url ('/admin/EditAbout')}}" role="button">Editar Sobre mim</a>
 
 
                 </div>
