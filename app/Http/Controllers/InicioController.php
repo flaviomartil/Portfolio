@@ -72,4 +72,15 @@ class InicioController extends Controller
     //   return response("Ocorreu um erro ao validar os campos, tente novamente mais tarde.");
     // }
   }
+
+  public function refreshToken(Request $request)
+  {
+    session()->regenerate();
+    return response()->json(
+      [
+        "token" => csrf_token()
+      ],
+      200
+    );
+  }
 }

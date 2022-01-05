@@ -122,6 +122,24 @@
 
     return true;
   });
+  function newCsrfToken() {
+    $.ajax({
+      url: "/newCsrf",
+      type: 'get',
+      dataType: 'json',
+      success: function (result) {
+        $('meta[name="csrf-token"]').attr('content', result.token);
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': result.token
+          }
+        });
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr);
+      }
+    });
+  }
 
   function php_email_form_submit(this_form, action, data) {
     $.ajax({
@@ -131,20 +149,30 @@
       timeout: 40000
     }).done(function (msg) {
       if (msg == 'E-mail enviado, em breve responderemos seu contato.') {
+        newCsrfToken();
+        $('.sent-message').hide();
+        $('.error-message').hide();
         this_form.find('.loading').slideUp();
         this_form.find('.sent-message').slideDown();
         this_form.find("input:not(input[type=submit]), textarea").val('');
+        grecaptcha.reset();
       } else {
+        $('.sent-message').hide();
+        $('.error-message').hide();
         this_form.find('.loading').slideUp();
         this_form.find('.error-message').slideDown().html(msg);
+        grecaptcha.reset();
       }
     }).fail(function (data) {
+      $('.sent-message').hide();
+      $('.error-message').hide();
       var error_msg = "O envio de e-mail falhou:<br>";
       if (data.responseText) {
         error_msg += data.responseText;
       }
       this_form.find('.loading').slideUp();
       this_form.find('.error-message').slideDown().html(error_msg);
+      grecaptcha.reset();
     });
   }
 
