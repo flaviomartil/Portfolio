@@ -359,19 +359,28 @@
                             </div>
 
                             <div class="email">
-                                <a href="mailto:{{ $model->telefone }}" class="icon-block">
+                                <a href="mailto:{{ $model->email_profissional }}" class="icon-block">
                                     <i class="icofont-envelope"></i>
-                                    <h4>Email profissional:</h4>
-                                    <p>{{ $model->email_profissional }}</p>
+                                </a>
+                                <h4>Email profissional:</h4>
+                                <a href="mailto:{{ $model->email_profissional }}"
+                                    style="text-align: center;margin-left: 15.9px;margin-top: 18.5px;  text-decoration: none;"
+                                    class="icon-block">
+                                    {{ $model->email_profissional }}
                                 </a>
                             </div>
 
                             <div class="phone">
                                 <a href="tel:{{ $model->telefone }}" class="icon-block">
                                     <i class="icofont-phone"></i>
-                                    <h4>Ligar:</h4>
-                                    <p>{{ $model->telefone }}</p>
                                 </a>
+                                <h4>Ligar:</h4>
+                                <a href="tel:{{ $model->telefone }}"
+                                    style="text-align: center;margin-left: 14.5px;margin-top: 18.5px;  text-decoration: none;"
+                                    class="icon-block">
+                                    {{ $model->telefone }}
+                                </a>
+
                             </div>
 
                         </div>
