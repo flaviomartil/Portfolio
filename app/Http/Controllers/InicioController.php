@@ -43,13 +43,10 @@ class InicioController extends Controller
 
   public function sendEmail(Request $request)
   {
-    // try {
     $nome = $request->input('name');
     $assunto = $request->input('subject');
     $remetente = $request->input('email');
     $mensagem = $request->input('message');
-    $string = utf8_encode('É preciso resolver o captcha');
-
 
     $v = Validator::make($request->all(), [
       'name' => 'required',
@@ -79,9 +76,6 @@ class InicioController extends Controller
       $message->from('muxibashop@gmail.com', 'Contato Portfolio');
     });
     return response("E-mail enviado, em breve responderemos seu contato.");
-    // } catch (\Exception $e) {
-    //   return response("Ocorreu um erro ao validar os campos, tente novamente mais tarde.");
-    // }
   }
 
   public function refreshToken(Request $request)
