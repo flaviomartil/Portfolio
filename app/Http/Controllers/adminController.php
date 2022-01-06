@@ -72,7 +72,7 @@ class adminController extends Controller
     public function projectCreate()
     {
         $categorias = categorias::get();
-        return view('/create', compact('tipo', 'categorias'));
+        return view('/create', compact('categorias'));
     }
 
     /**
