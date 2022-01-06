@@ -14,17 +14,19 @@
 use App\Http\Controllers\adminController;
 
 Auth::routes();
-// GET's
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin', 'HomeController@index')->name('admin');
-Route::get('/admin/CreateProject', 'adminController@projectCreate');
-Route::get('/admin/delete/{id}', 'adminController@destroy');
+// Rotas de admin protegidas por middleware e grupo
+Route::group(['prefix' => '/admin', 'middleware' => ['checkAdmin']], function () {
+    Route::get('', 'HomeController@index')->name('admin');
+    Route::get('/CreateProject', 'adminController@projectCreate');
+    Route::get('/delete/{id}', 'adminController@destroy');
+    Route::get('/editar/{id}', 'adminController@show');
+    Route::get('/EditAbout', 'adminController@editAbout');
+    Route::post('/createNow', 'adminController@create');
+    Route::post('/editnow/{id}', 'adminController@update');
+    Route::post('/EditAbout/update', 'adminController@SaveAbout');
+});
+
+// Rotas do portfolio
 Route::get('/', 'InicioController@index');
-Route::get('/admin/editar/{id}', 'adminController@show');
-Route::get('/admin/EditAbout', 'adminController@editAbout');
-//Post's
-Route::post('/sendEmail', 'InicioController@sendEmail');
 Route::get('/newCsrf', 'InicioController@refreshToken');
-Route::post('/admin/createNow', 'adminController@create');
-Route::post('/admin/editnow/{id}', 'adminController@update');
-Route::post('/admin/EditAbout/update', 'adminController@SaveAbout');
+Route::post('/sendEmail', 'InicioController@sendEmail');
