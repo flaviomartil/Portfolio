@@ -64,7 +64,7 @@
                 @php
                     
                 @endphp
-                <h1 class="text-light"><a href="index.html">{{ $model->nome }}</a></h1>
+                <h1 class="text-light"><a href="index.html">{{ $data['sobremim']->nome }}</a></h1>
                 <div class="social-links mt-3 text-center">
                     <a href="http://fb.com/flaviomartil" target="_blank" class="facebook"><i
                             class="bx bxl-facebook"></i></a>
@@ -98,7 +98,7 @@
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="hero-container" data-aos="fade-in">
 
-            <h1>{{ $model->nome }}</h1>
+            <h1>{{ $data['sobremim']->nome }}</h1>
             <p>Eu sou programador <span class="typed" data-typed-items=" PHP, Laravel, C#"></span></p>
         </div>
     </section><!-- End Hero -->
@@ -128,24 +128,24 @@
 
 
                                     <li><i class="icofont-rounded-right"></i> <strong>Aniversário:</strong>
-                                        {{ $newDate }}</li>
+                                        {{ $data['sobremim']->aniversario }}</li>
 
                                     <li><i class="icofont-rounded-right"></i> <strong>Website:</strong>
-                                        {{ $model->website }}</li>
+                                        {{ $data['sobremim']->website }}</li>
                                     <li><i class="icofont-rounded-right"></i> <strong>Telefone:</strong>
-                                        {{ $model->telefone }}</li>
+                                        {{ $data['sobremim']->telefone }}</li>
                                     <li><i class="icofont-rounded-right"></i> <strong>Cidade:</strong>
-                                        {{ $model->cidade_atual }}, Brasil</li>
+                                        {{ $data['sobremim']->cidade_atual }}, Brasil</li>
                                 </ul>
                             </div>
                             <div class="col-lg-6">
                                 <ul>
                                     <li><i class="icofont-rounded-right"></i> <strong>Idade:</strong>
-                                        {{ $model->idade }}</li>
+                                        {{ $data['sobremim']->idade }}</li>
                                     <li><i class="icofont-rounded-right"></i> <strong>E-mail:</strong>
-                                        {{ $model->email }}</li>
+                                        {{ $data['sobremim']->email }}</li>
                                     <li><i class="icofont-rounded-right"></i> <strong>Freelance:</strong>
-                                        {{ $model->freelance_status }}</li>
+                                        {{ $data['sobremim']->freelance_status }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -304,17 +304,16 @@
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
                             <li data-filter="*" class="filter-active">Todos</li>
-                            @foreach ($categorias as $categoria)
-                                <li data-filter=".filter-{{ $categoria->nome_categoria }}">
-                                    {{ $categoria->nome_categoria }}</li>
-
+                            @foreach ($data['categorias'] as $categoria)
+                                <li data-filter=".filter-{{ $categoria }}">
+                                    {{ $categoria }}</li>
                             @endforeach
 
                         </ul>
                     </div>
                 </div>
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-                    @foreach ($projetos as $projeto)
+                    @foreach ($data['projetos'] as $projeto)
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $projeto->nome_categoria }}">
                             <div class="portfolio-wrap">
@@ -356,30 +355,31 @@
                             <div class="address">
                                 <i class="icofont-google-map"></i>
                                 <h4>Endereço:</h4>
-                                <p>{{ $model->endereco }}, {{ $model->cidade_atual }}, SP {{ $model->cep }}</p>
+                                <p>{{ $data['sobremim']->endereco }}, {{ $data['sobremim']->cidade_atual }}, SP
+                                    {{ $data['sobremim']->cep }}</p>
                             </div>
 
                             <div class="email">
-                                <a href="mailto:{{ $model->email_profissional }}" class="icon-block">
+                                <a href="mailto:{{ $data['sobremim']->email_profissional }}" class="icon-block">
                                     <i class="icofont-envelope"></i>
                                 </a>
                                 <h4>Email profissional:</h4>
-                                <a href="mailto:{{ $model->email_profissional }}"
+                                <a href="mailto:{{ $data['sobremim']->email_profissional }}"
                                     style="text-align: center;margin-left: 15.9px;margin-top: 18.5px;  text-decoration: none;"
                                     class="icon-block">
-                                    {{ $model->email_profissional }}
+                                    {{ $data['sobremim']->email_profissional }}
                                 </a>
                             </div>
 
                             <div class="phone">
-                                <a href="tel:{{ $model->telefone }}" class="icon-block">
+                                <a href="tel:{{ $data['sobremim']->telefone }}" class="icon-block">
                                     <i class="icofont-phone"></i>
                                 </a>
                                 <h4>Ligar:</h4>
-                                <a href="tel:{{ $model->telefone }}"
+                                <a href="tel:{{ $data['sobremim']->telefone }}"
                                     style="text-align: center;margin-left: 14.5px;margin-top: 18.5px;  text-decoration: none;"
                                     class="icon-block">
-                                    {{ $model->telefone }}
+                                    {{ $data['sobremim']->telefone }}
                                 </a>
 
                             </div>

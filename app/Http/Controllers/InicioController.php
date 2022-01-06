@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\categorias;
 use Illuminate\Http\Request;
-use App\projeto;
 use App\projetos;
 use App\Mail\email;
 use App\sobreMim;
@@ -19,21 +18,31 @@ class InicioController extends Controller
   public function index()
   {
     // Todos os dados da model Projetos
-    $projetos = DB::table('projetos')
-      ->join('categorias', 'categoria_id', '=', 'categorias.id')
-      ->select('nome', 'nome_categoria', 'imagem', 'descricao', 'link')
-      ->get('');
-    $categorias = categorias::get();
-    // Todos os dados da model categorias
-    $contador = 0;
+    $projetos = DB::table('projetos as proj')
+      ->join('categorias as categoria', 'categoria.id', '=', 'categoria_id')
+      ->select('proj.nome', 'proj.imagem', 'proj.descricao', 'proj.link', 'categoria.nome_categoria')
+      ->orderBy('categoria.nome_categoria', 'asc')
+      ->get();
 
-    if (count($categorias) > 0) {
+    $categorias = [];
+    foreach ($projetos as $categoria) {
+      if (!in_array($categoria->nome_categoria, $categorias)) {
+        $categorias[] = $categoria->nome_categoria;
+      }
+    }
+
+    if (count($projetos) > 0) {
       // Todos os dados da model sobreMim
-      $model = sobreMim::find(1);
-      if ($model) {
-        $orgDate = $model->aniversario;
-        $newDate = date("d/m/Y", strtotime($orgDate));
-        return view('welcome', compact('model', 'newDate', 'categorias', 'projetos', 'contador'));
+      $sobreMim = sobreMim::find(1);
+
+      if ($sobreMim) {
+        $sobreMim->aniversario = date("d/m/Y", strtotime($sobreMim->aniversario));
+        $data = [
+          'projetos' => $projetos,
+          'categorias' => $categorias,
+          'sobremim' => $sobreMim
+        ];
+        return view('welcome', compact('data'));
       }
     } else {
       return "erro ao carregar site";
