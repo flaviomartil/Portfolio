@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use stdClass;
 use Response;
+use Validator;
 
 class InicioController extends Controller
 {
@@ -47,14 +48,24 @@ class InicioController extends Controller
     $assunto = $request->input('subject');
     $remetente = $request->input('email');
     $mensagem = $request->input('message');
+    $string = utf8_encode('É preciso resolver o captcha');
 
-    $this->validate($request, [
+
+    $v = Validator::make($request->all(), [
       'name' => 'required',
       'subject' => 'required',
       'message' => 'required',
       'email' => 'required|email',
       'g-recaptcha-response' => 'required|recaptcha',
     ]);
+
+    $erros = [];
+    if ($v->fails()) {
+      foreach ($v->errors()->messages() as $messages) {
+        $erros[] = $messages;
+      }
+      return response($erros);
+    }
 
     $data = [
       'name' => $nome,

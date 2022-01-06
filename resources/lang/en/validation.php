@@ -103,6 +103,21 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'g-recaptcha-response' => [
+            'required' => 'É necessário resolver o captcha',
+        ],
+        'name' => [
+            'required' => 'É necessário inserir o nome',
+        ],
+        'subject' => [
+            'required' => 'É necessário inserir o assunto',
+        ],
+        'email' => [
+            'required' => 'É necessário inserir o e-mail',
+        ],
+        'message' => [
+            'required' => 'É necessário inserir uma mensagem',
+        ],
     ],
 
     /*
@@ -115,7 +130,5 @@ return [
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-
-    'attributes' => [],
 
 ];

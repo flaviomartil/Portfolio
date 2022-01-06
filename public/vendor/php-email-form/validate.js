@@ -1,3 +1,4 @@
+
 /**
 * PHP Email Form Validation - v2.3
 * URL: https://bootstrapmade.com/php-email-form/
@@ -141,6 +142,8 @@
     });
   }
 
+
+
   function php_email_form_submit(this_form, action, data) {
     $.ajax({
       type: "POST",
@@ -157,19 +160,23 @@
         this_form.find("input:not(input[type=submit]), textarea").val('');
         grecaptcha.reset();
       } else {
+        var error_msg = "O envio de e-mail falhou:<br>";
+        msg.map(function (item, index) {
+          error_msg += item + '<br>';
+        })
         $('.sent-message').hide();
         $('.error-message').hide();
         this_form.find('.loading').slideUp();
-        this_form.find('.error-message').slideDown().html(msg);
+        this_form.find('.error-message').slideDown().html(error_msg);
         grecaptcha.reset();
       }
     }).fail(function (data) {
       $('.sent-message').hide();
       $('.error-message').hide();
       var error_msg = "O envio de e-mail falhou:<br>";
-      if (data.responseText) {
-        error_msg += data.responseText;
-      }
+      data.map(function (item, index) {
+        error_msg += item + '<br>';
+      })
       this_form.find('.loading').slideUp();
       this_form.find('.error-message').slideDown().html(error_msg);
       grecaptcha.reset();
