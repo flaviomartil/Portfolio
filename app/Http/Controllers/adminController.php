@@ -96,7 +96,7 @@ class adminController extends Controller
         $categorias = categorias::get();
         $model = DB::table('projetos')
             ->join('categorias', 'categoria_id', '=', 'categorias.id')
-            ->select('projetos.id', 'nome', 'nome_categoria', 'imagem', 'descricao', 'link')
+            ->select('projetos.id', 'categoria_id', 'nome', 'nome_categoria', 'imagem', 'descricao', 'link')
             ->where("projetos.id", $id)
             ->first();
         return view('edit_project', compact('model', 'categorias', 'id'));
