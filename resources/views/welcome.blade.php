@@ -240,8 +240,9 @@
                         @foreach ($data['educacao'] as $educacao)
                             <div class="resume-item">
                                 <h4>{{ $educacao->tipo }}</h4>
-                                <h5>{{ $educacao->fim }}</h5>
-                                <p><em>{{ $educacao->escola }}, {{ $educacao->cidade }}, {{ $educacao->estado }}</em>
+                                <h5>{{ $educacao->inicio }} - {{ $educacao->fim }}</h5>
+                                <p><em>{{ $educacao->escola }}, {{ $educacao->cidade }},
+                                        {{ $educacao->estado }}</em>
                                 </p>
                             </div>
                         @endforeach

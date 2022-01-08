@@ -48,7 +48,13 @@ class InicioController extends Controller
           ->get();
         $ensino = [];
         foreach ($educacoes as $educacao) {
-          $ensino = $educacao;
+          $inicio = strtotime($educacao->inicio);
+          $inicio = date('Y', $inicio);
+          $fim = strtotime($educacao->fim);
+          $fim = date('Y', $fim);
+          $educacao->inicio = $inicio;
+          $educacao->fim = $fim;
+          $ensino[] = $educacao;
         }
         $empresas = [];
         foreach ($experiencias as $experiencia) {
@@ -66,7 +72,7 @@ class InicioController extends Controller
           'categorias' => $categorias,
           'sobreMim' => $sobreMim,
           'competencias' => $competencias,
-          'educacao' => $educacao,
+          'educacao' => $ensino,
           'empresas' => $empresas
         ];
         return view('welcome', compact('data'));
