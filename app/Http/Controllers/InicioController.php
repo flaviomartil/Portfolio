@@ -33,7 +33,7 @@ class InicioController extends Controller
 
     if (count($projetos) > 0) {
       // Todos os dados da model sobreMim
-      $sobreMim = sobreMim::find(1);
+      $sobreMim = sobreMim::findOrFail(1);
 
       if ($sobreMim) {
         $sobreMim->aniversario = date("d/m/Y", strtotime($sobreMim->aniversario));
