@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\projetos;
+use App\Projetos;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-use App\categorias;
-use App\sobreMim;
+use App\Categorias;
+use App\SobreMim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +29,7 @@ class adminController extends Controller
     public function SaveAbout(Request $request)
     {
         $id = 1;
-        $about = sobreMim::findOrFail($id);
+        $about = SobreMim::findOrFail($id);
         $about->nome = $request->nome;
         $about->website = $request->website;
         $about->telefone = $request->telefone;
@@ -58,7 +58,7 @@ class adminController extends Controller
      */
     public function create(Request $request)
     {
-        $projeto = new projetos();
+        $projeto = new Projetos();
 
         $projeto->nome = $request->nome;
         $projeto->descricao = $request->descricao;
@@ -71,7 +71,7 @@ class adminController extends Controller
     }
     public function projectCreate()
     {
-        $categorias = categorias::get();
+        $categorias = Categorias::get();
         return view('/create', compact('categorias'));
     }
 
@@ -93,7 +93,7 @@ class adminController extends Controller
      */
     public function show($id)
     {
-        $categorias = categorias::get();
+        $categorias = Categorias::get();
         $model = DB::table('projetos')
             ->join('categorias', 'categoria_id', '=', 'categorias.id')
             ->select('projetos.id', 'categoria_id', 'nome', 'nome_categoria', 'imagem', 'descricao', 'link')
@@ -121,7 +121,7 @@ class adminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $projeto = projetos::findOrFail($id);
+        $projeto = Projetos::findOrFail($id);
         $projeto->nome = $request->nome;
         $projeto->descricao = $request->descricao;
         $projeto->imagem = $request->imagem;
@@ -142,7 +142,7 @@ class adminController extends Controller
      */
     public function destroy($id)
     {
-        $model = projetos::findOrFail($id);
+        $model = Projetos::findOrFail($id);
         if ($model) {
             $model->delete();
             return redirect()->route('admin');

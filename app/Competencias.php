@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Projetos extends Model
+class Competencias extends Model
 {
     protected $fillable = [
-        'nome', 'imagem', 'categoria_id', 'link'
+        'usuario_id', 'detalhes'
     ];
 }

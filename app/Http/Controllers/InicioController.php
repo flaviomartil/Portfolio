@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\categorias;
+use App\Categorias;
 use Illuminate\Http\Request;
-use App\projetos;
+use App\Projetos;
 use App\Mail\email;
-use App\sobreMim;
+use App\SobreMim;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use stdClass;
@@ -32,15 +32,16 @@ class InicioController extends Controller
     }
 
     if (count($projetos) > 0) {
-      // Todos os dados da model sobreMim
-      $sobreMim = sobreMim::findOrFail(1);
+      // Todos os dados da model SobreMim
+      $sobreMim = SobreMim::findOrFail(1);
 
       if ($sobreMim) {
         $sobreMim->aniversario = date("d/m/Y", strtotime($sobreMim->aniversario));
+
         $data = [
           'projetos' => $projetos,
           'categorias' => $categorias,
-          'sobremim' => $sobreMim
+          'sobreMim' => $sobreMim
         ];
         return view('welcome', compact('data'));
       }
