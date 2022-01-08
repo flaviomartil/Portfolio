@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Competencias extends Migration
+class Educacao extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class Competencias extends Migration
      */
     public function up()
     {
-        Schema::create('competencias', function (Blueprint $table) {
+        Schema::create('educacoes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('usuario_id')->unsigned()->index();
-            $table->string('detalhes');
+            $table->string('escola');
+            $table->string('tipo');
+            $table->string('cidade');
+            $table->string('estado');
+            $table->date('inicio');
+            $table->date('fim');
             $table->foreign('usuario_id')->references('id')->on('users');
             $table->timestamps();
         });

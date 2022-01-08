@@ -237,23 +237,14 @@
 
 
                         <h3 class="resume-title">Educação</h3>
-                        <div class="resume-item">
-                            <h4>Ensino fundamental</h4>
-                            <h5>Conclusão em 2013</h5>
-                            <p><em>Colégio Anjos da guarda, Bebedouro, SP</em></p>
-                        </div>
-                        <div class="resume-item">
-                            <h4>Ensino médio</h4>
-                            <h5>2014 - 2017</h5>
-                            <p><em>Colégio Vicentino São José, Curitiba, PR</em></p>
-                        </div>
-                        <div class="resume-item">
-                            <h4>Faculdade Analise e Desenvolvimento de Sistemas</h4>
-                            <h5>2019-2021</h5>
-                            <p><em>UNIP, São José Do Rio Preto, SP</em></p>
-                            <p>Faculdade que estou fazendo até o momento, me formo em 06/2021, pretendo iniciar gestão
-                                de projetos.</p>
-                        </div>
+                        @foreach ($data['educacao'] as $educacao)
+                            <div class="resume-item">
+                                <h4>{{ $educacao->tipo }}</h4>
+                                <h5>{{ $educacao->fim }}</h5>
+                                <p><em>{{ $educacao->escola }}, {{ $educacao->cidade }}, {{ $educacao->estado }}</em>
+                                </p>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                         <h3 class="resume-title">Experiência profissional</h3>
