@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Projetos;
 use App\Mail\email;
 use App\SobreMim;
+use App\Competencias;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use stdClass;
@@ -30,18 +31,17 @@ class InicioController extends Controller
         $categorias[] = $categoria->nome_categoria;
       }
     }
-
     if (count($projetos) > 0) {
       // Todos os dados da model SobreMim
       $sobreMim = SobreMim::findOrFail(1);
-
       if ($sobreMim) {
         $sobreMim->aniversario = date("d/m/Y", strtotime($sobreMim->aniversario));
-
+        $competencias = Competencias::where('usuario_id', 1)->get();
         $data = [
           'projetos' => $projetos,
           'categorias' => $categorias,
-          'sobreMim' => $sobreMim
+          'sobreMim' => $sobreMim,
+          'competencias' => $competencias
         ];
         return view('welcome', compact('data'));
       }

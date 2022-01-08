@@ -152,11 +152,11 @@
                         <p>
                         <ul>
                             <li><i class="icofont-rounded-right"></i> <strong>Competências comportamentais: </strong>
-                            <li><i class="icofont-rounded-right"></i>Forte relacionamento interpessoal, automotivado
+                                </p>
+                                @foreach ($data['competencias'] as $competencias)
+                            <li><i class="icofont-rounded-right"></i>{{ $competencias->detalhes }}
                             </li>
-                            <li><i class="icofont-rounded-right"></i>Facilidade em trabalho em equipe</li>
-                            <li><i class="icofont-rounded-right"></i>Criatividade e iniciativa</li>
-                            </p>
+                            @endforeach
                             </li>
                         </ul>
                     </div>
@@ -228,9 +228,7 @@
 
                 <div class="section-title">
                     <h2>Resumo</h2>
-                    <p>Busco oportunidade na área de Tecnologia de Informação. Tenho como objetivo contribuir com vossa
-                        empresa e continuar com meu aprendizado e desenvolvimento profissional.
-                    </p>
+                    <p>{{ $data['sobreMim']->resumo }}</p>
                 </div>
 
                 <div class="row">

@@ -18,8 +18,9 @@ Auth::routes();
 Route::group(['prefix' => '/admin', 'middleware' => ['checkAdmin']], function () {
     Route::get('', 'HomeController@index')->name('admin');
     Route::get('/CreateProject', 'adminController@projectCreate');
-    Route::get('/delete/{id}', 'adminController@destroy');
+    Route::post('/delete', 'adminController@destroy');
     Route::get('/editar/{id}', 'adminController@show');
+    Route::get('/projects', 'adminController@getProjects');
     Route::get('/EditAbout', 'adminController@editAbout');
     Route::post('/createNow', 'adminController@create');
     Route::post('/editnow/{id}', 'adminController@update');

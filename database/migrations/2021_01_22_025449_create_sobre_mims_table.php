@@ -27,6 +27,7 @@ class CreateSobreMimsTable extends Migration
             $table->date('aniversario');
             $table->string('endereco');
             $table->string('cep');
+            $table->string('resumo');
             $table->timestamps();
         });
     }

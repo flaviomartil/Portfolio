@@ -20,10 +20,18 @@ class adminController extends Controller
     public function index()
     {
     }
+    public function getProjects()
+    {
+        $projetos = DB::table('projetos as proj')
+            ->join('categorias as categoria', 'categoria.id', '=', 'categoria_id')
+            ->select('proj.id', 'proj.nome', 'proj.imagem', 'proj.descricao', 'proj.link', 'categoria.nome_categoria')
+            ->orderBy('categoria.nome_categoria', 'asc')
+            ->get();
+        return $projetos;
+    }
     public function editAbout()
     {
-        $model = DB::select("select id,nome,website,telefone,cidade_atual,idade,email,email_profissional,freelance_status,aniversario,endereco,cep   from sobre_mims where id = 1");
-        $about = $model[0];
+        $about = SobreMim::findOrFail(1);
         return view('edit_about', compact('about'));
     }
     public function SaveAbout(Request $request)
@@ -42,6 +50,7 @@ class adminController extends Controller
         $about->aniversario = $request->aniversario;
         $about->endereco = $request->endereco;
         $about->cep = $request->cep;
+        $about->resumo = $request->resumo;
 
 
         if ($about->save()) {
@@ -140,9 +149,10 @@ class adminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $model = Projetos::findOrFail($id);
+        $params = $request->all();
+        $model = Projetos::findOrFail($params['id']);
         if ($model) {
             $model->delete();
             return redirect()->route('admin');
