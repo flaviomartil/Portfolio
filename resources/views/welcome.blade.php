@@ -249,6 +249,9 @@
                     </div>
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                         <h3 class="resume-title">Experiência profissional</h3>
+                        @foreach ($data['empresas'] as $empresa)
+                            <h3>{{ $empresa }}</h3>
+                        @endforeach
                         <div class="resume-item">
                             <h4>Auxiliar de Ti | Quinta Valentina </h4>
                             <h5>2020 - Atualmente</h5>
@@ -256,9 +259,12 @@
                             <ul>
                                 <li>Desenvolvimento e manutenção de sistemas em Php/Laravel, C#
                                     (Intranet,CRM,E-commerce)</li>
-                                <li>SHOPIFY: conhecimento em desenvolvimento de ferramentas e suporte aos usuários </li>
-                                <li>VTEX: conhecimento em desenvolvimento de ferramentas e suporte aos usuários</li>
-                                <li>ERP Protheus: experiência com rotinas, como de importação de clientes e pedidos,
+                                <li>SHOPIFY: conhecimento em desenvolvimento de ferramentas e suporte aos
+                                    usuários </li>
+                                <li>VTEX: conhecimento em desenvolvimento de ferramentas e suporte aos usuários
+                                </li>
+                                <li>ERP Protheus: experiência com rotinas, como de importação de clientes e
+                                    pedidos,
                                     gestão de
                                     estoques, apoio ao faturamento e inserção de dados via API</li>
 

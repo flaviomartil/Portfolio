@@ -10,6 +10,7 @@ use App\SobreMim;
 use App\Competencias;
 use App\Educacao;
 use App\Experiencias;
+use App\DetalhesExperiencias;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use stdClass;
@@ -41,12 +42,24 @@ class InicioController extends Controller
         $sobreMim->aniversario = date("d/m/Y", strtotime($sobreMim->aniversario));
         $competencias = Competencias::where('usuario_id', 1)->get();
         $educacoes = Educacao::where('usuario_id', 1)->get();
-
-        $experiencias = DB::table('detalhes_experiencias as detalhes')
-          ->join('experiencias as xp', 'detalhes.experiencias_id', '=', 'xp.id')
-          ->select('detalhes.detalhes', 'xp.empresa', 'xp.cargo', 'xp.inicio', 'xp.fim', 'xp.cidade', 'xp.estado')
-          ->get();
         $ensino = [];
+        $empresas = [];
+        $descricao = [];
+        $experiencias = Experiencias::get();
+        $detalhes = DetalhesExperiencias::get();
+
+        foreach ($experiencias as $experiencia) {
+          $empresas[$experiencia->id]['empresa'] = $experiencia->empresa;
+          $empresas[$experiencia->id]['cidade'] = $experiencia->cidade;
+          $empresas[$experiencia->id]['estado'] = $experiencia->estado;
+          $empresas[$experiencia->id]['cargo'] = $experiencia->cargo;
+          $empresas[$experiencia->id]['inicio'] = $experiencia->inicio;
+          $empresas[$experiencia->id]['fim'] = $experiencia->fim;
+        }
+        foreach ($detalhes as $key => $detalhe) {
+          $empresas[$detalhe->experiencias_id]['detalhes'][] = $detalhe->detalhes;
+        }
+
         foreach ($educacoes as $educacao) {
           $inicio = strtotime($educacao->inicio);
           $inicio = date('Y', $inicio);
@@ -56,17 +69,7 @@ class InicioController extends Controller
           $educacao->fim = $fim;
           $ensino[] = $educacao;
         }
-        $empresas = [];
-        foreach ($experiencias as $experiencia) {
-          if (!isset($empresas[$experiencia->empresa]['inicio']) || !isset($empresas[$experiencia->empresa]['fim']) || !isset($empresas[$experiencia->empresa]['cargo'])) {
-            $empresas[$experiencia->empresa]['inicio'] = $experiencia->inicio;
-            $empresas[$experiencia->empresa]['fim'] = $experiencia->fim;
-            $empresas[$experiencia->empresa]['cargo'] = $experiencia->cargo;
-            $empresas[$experiencia->empresa]['cidade'] = $experiencia->cidade;
-            $empresas[$experiencia->empresa]['estado'] = $experiencia->estado;
-          }
-          $empresas[$experiencia->empresa]['detalhes'][] = $experiencia->detalhes;
-        }
+
         $data = [
           'projetos' => $projetos,
           'categorias' => $categorias,
