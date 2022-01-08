@@ -247,41 +247,20 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
                         <h3 class="resume-title">Experiência profissional</h3>
                         @foreach ($data['empresas'] as $empresa)
-                            <h3>{{ $empresa }}</h3>
+                            <div class="resume-item">
+                                <h4>{{ $empresa['cargo'] }} | {{ $empresa['empresa'] }} </h4>
+                                <h5>{{ $empresa['inicio'] }} - {{ $empresa['fim'] }} </h5>
+                                <p><em>{{ $empresa['cidade'] }}, {{ $empresa['estado'] }} </em></p>
+                                <ul>
+                                    @foreach ($empresa['detalhes'] as $detalhe)
+                                        <li>{{ $detalhe }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         @endforeach
-                        <div class="resume-item">
-                            <h4>Auxiliar de Ti | Quinta Valentina </h4>
-                            <h5>2020 - Atualmente</h5>
-                            <p><em>Distrito Industrial, São José Do Rio Preto </em></p>
-                            <ul>
-                                <li>Desenvolvimento e manutenção de sistemas em Php/Laravel, C#
-                                    (Intranet,CRM,E-commerce)</li>
-                                <li>SHOPIFY: conhecimento em desenvolvimento de ferramentas e suporte aos
-                                    usuários </li>
-                                <li>VTEX: conhecimento em desenvolvimento de ferramentas e suporte aos usuários
-                                </li>
-                                <li>ERP Protheus: experiência com rotinas, como de importação de clientes e
-                                    pedidos,
-                                    gestão de
-                                    estoques, apoio ao faturamento e inserção de dados via API</li>
-
-
-                            </ul>
-                        </div>
-                        <div class="resume-item">
-                            <h4>Vendedor de Telemarketing e Auxiliar de TI</h4>
-                            <h5>2018 - 2020</h5>
-                            <p><em>Vila Angélica, São José Do Rio Preto </em></p>
-                            <ul>
-                                <li>Vendas por telefone</li>
-                                <li>Desenvolvimento de sistema para captação de clientes via SINTEGRA</li>
-                                <li>Construção de ferramenta para cobrança via whatsapp</li>
-                                <li>Manutenção de hardware, manutenção de redes, suporte aos usuários</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
 
