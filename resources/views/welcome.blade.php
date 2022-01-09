@@ -234,8 +234,6 @@
                 <div class="row">
                     <div class="col-lg-6" data-aos="fade-up">
                         <h3 class="resume-title">Sumário</h3>
-
-
                         <h3 class="resume-title">Educação</h3>
                         @foreach ($data['educacao'] as $educacao)
                             <div class="resume-item">

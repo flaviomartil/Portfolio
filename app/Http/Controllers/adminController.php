@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Categorias;
 use App\SobreMim;
+use App\Competencias;
+use App\Educacao;
+use App\Experiencias;
+use App\DetalhesExperiencias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +23,12 @@ class adminController extends Controller
      */
     public function index()
     {
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
     }
     public function getProjects()
     {
@@ -57,6 +67,68 @@ class adminController extends Controller
             return redirect()->route('admin');
         } else {
             return redirect()->route('admin');
+        }
+    }
+    public function saveExperiencias(Request $request)
+    {
+        $params = $request->all();
+        $detalhes = [];
+        dd($params);
+        foreach ($params['detalhe'] as $detalhe) {
+            $detalhes[] = $detalhe;
+        }
+    }
+    public function viewExperiencias()
+    {
+        return view('experiencias');
+    }
+    public function listarExperiencias()
+    {
+        $experiencias = Experiencias::orderBy('inicio')->get();
+
+        foreach ($experiencias as $experiencia) {
+            $inicio = strtotime($experiencia->inicio);
+            $inicio = date('d/m/Y', $inicio);
+            $fim = strtotime($experiencia->fim);
+            $fim = date('d/m/Y', $fim);
+            $experiencia->inicio = $inicio;
+            $experiencia->fim = $fim;
+        }
+
+        return $experiencias;
+    }
+
+    public function showExperiencias($id)
+    {
+        $experiencias = Experiencias::orderBy('inicio')->where('id', $id)->get();
+        $detalhes = DetalhesExperiencias::where('experiencias_id', $id)->get();
+        $empresas = [];
+
+        foreach ($experiencias as $experiencia) {
+            $empresas['empresa'] = $experiencia->empresa;
+            $empresas['cidade'] = $experiencia->cidade;
+            $empresas['estado'] = $experiencia->estado;
+            $empresas['cargo'] = $experiencia->cargo;
+            $empresas['inicio'] = $experiencia->inicio;
+            $empresas['fim'] = $experiencia->fim;
+        }
+        foreach ($detalhes as $key => $detalhe) {
+            $empresas['detalhes'][$key] = $detalhe->detalhes;
+        }
+
+        return view('/edit_experiencias', compact('empresas'));
+    }
+    public function destroyExperiencias(Request $request)
+    {
+        $params = $request->all();
+        $detalhes = DetalhesExperiencias::where('experiencias_id', $params['id']);
+        $experiencias = Experiencias::findOrFail($params['id']);
+        if ($experiencias && $detalhes) {
+            $detalhes->delete();
+            $experiencias->delete();
+            return redirect()->route('experiencias');
+        } else {
+            return redirect()->route('experiencias');
         }
     }
 

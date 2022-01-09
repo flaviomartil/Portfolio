@@ -19,12 +19,18 @@ Route::group(['prefix' => '/admin', 'middleware' => ['checkAdmin']], function ()
     Route::get('', 'HomeController@index')->name('admin');
     Route::get('/CreateProject', 'adminController@projectCreate');
     Route::post('/delete', 'adminController@destroy');
+    Route::post('experiencias/delete', 'adminController@destroyExperiencias');
     Route::get('/editar/{id}', 'adminController@show');
+    Route::get('experiencias/editar/{id}', 'adminController@showExperiencias');
     Route::get('/projects', 'adminController@getProjects');
     Route::get('/EditAbout', 'adminController@editAbout');
     Route::post('/createNow', 'adminController@create');
     Route::post('/editnow/{id}', 'adminController@update');
     Route::post('/EditAbout/update', 'adminController@SaveAbout');
+    Route::post('/experiencias/update', 'adminController@saveExperiencias');
+    Route::get('/logout', 'adminController@logout');
+    Route::get('/getExperiencias', 'adminController@listarExperiencias');
+    Route::get('/experiencias', 'adminController@viewExperiencias')->name('experiencias');
 });
 
 // Rotas do portfolio

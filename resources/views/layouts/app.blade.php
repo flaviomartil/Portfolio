@@ -24,50 +24,8 @@
 </head>
 
 <body>
-    {{-- <div id="app"> --}}
-    {{-- <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                               
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav> --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#"><strong>{{ config('app.name', 'Laravel') }}</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -77,18 +35,30 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
+                    @if (Auth::guest())
+                    @else
+                <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
+                    <a class="nav-link" href="/admin">Projetos<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item {{ Request::is('admin/experiencias') ? 'active' : '' }}">
+                    <a class="nav-link" href="/admin/experiencias">Experiencias<span
+                            class="sr-only">(current)</span></a>
+                </li>
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    </div>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                </div>
         </div>
         </li>
         </ul>
+
         <ul class="nav navbar-nav my-2 my-lg-0">
             <li class="nav-item"><a id="user" class="nav-link"><i class="fas fa-user"></i>
                     {{ Auth::user()->name }}</a></li>
-            <li class="nav-item"><a id="logout" class="nav-link teste" href="/logout"><i
+            <li class="nav-item"><a id="logout" class="nav-link teste" href="/admin/logout"><i
                         class="fas fa-sign-in-alt"></i>
                     Sair</a></li>
+            @endif
+
         </ul>
     </nav>
 

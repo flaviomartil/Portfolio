@@ -41,11 +41,11 @@ class InicioController extends Controller
       if ($sobreMim) {
         $sobreMim->aniversario = date("d/m/Y", strtotime($sobreMim->aniversario));
         $competencias = Competencias::where('usuario_id', 1)->get();
-        $educacoes = Educacao::where('usuario_id', 1)->get();
+        $educacoes = Educacao::where('usuario_id', 1)->orderBy('inicio')->get();
         $ensino = [];
         $empresas = [];
         $descricao = [];
-        $experiencias = Experiencias::get();
+        $experiencias = Experiencias::orderBy('inicio')->get();
         $detalhes = DetalhesExperiencias::get();
 
         foreach ($experiencias as $experiencia) {
@@ -53,8 +53,12 @@ class InicioController extends Controller
           $empresas[$experiencia->id]['cidade'] = $experiencia->cidade;
           $empresas[$experiencia->id]['estado'] = $experiencia->estado;
           $empresas[$experiencia->id]['cargo'] = $experiencia->cargo;
-          $empresas[$experiencia->id]['inicio'] = $experiencia->inicio;
-          $empresas[$experiencia->id]['fim'] = $experiencia->fim;
+          $inicio = strtotime($experiencia->inicio);
+          $inicio = date('d/m/Y', $inicio);
+          $fim = strtotime($experiencia->fim);
+          $fim = date('d/m/Y', $fim);
+          $empresas[$experiencia->id]['inicio'] = $inicio;
+          $empresas[$experiencia->id]['fim'] = $fim;
         }
         foreach ($detalhes as $key => $detalhe) {
           $empresas[$detalhe->experiencias_id]['detalhes'][] = $detalhe->detalhes;
