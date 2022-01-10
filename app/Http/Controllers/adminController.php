@@ -13,6 +13,9 @@ use App\Experiencias;
 use App\DetalhesExperiencias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use URL;
+use Validator;
+use Redirect;
 
 class adminController extends Controller
 {
@@ -72,10 +75,45 @@ class adminController extends Controller
     public function saveExperiencias(Request $request)
     {
         $params = $request->all();
-        $detalhes = [];
-        dd($params);
-        foreach ($params['detalhe'] as $detalhe) {
-            $detalhes[] = $detalhe;
+        $id = $request->route('id');
+        $experiencias = Experiencias::findOrfail($id);
+        $detalhes = DetalhesExperiencias::where('experiencias_id', $id);
+        $v = Validator::make($request->all(), [
+            'empresa' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+            'cargo' => 'required',
+            'inicio' => 'required',
+            'fim' => 'required',
+            "detalhe.*"  => "required|string|distinct",
+        ]);
+
+        $erros = [];
+        if ($v->fails()) {
+            foreach ($v->errors()->messages() as $messages) {
+                $erros[] = $messages;
+            }
+            return Redirect::back()->withErrors($erros);
+        }
+        $detalhes->delete();
+        $experiencias->empresa = $params['empresa'];
+        $experiencias->cidade = $params['cidade'];
+        $experiencias->estado = $params['estado'];
+        $experiencias->cargo = $params['cargo'];
+        $experiencias->inicio = $params['inicio'];
+        $experiencias->fim = $params['fim'];
+        $experiencias->save();
+
+        if ($experiencias) {
+            foreach ($params['detalhe'] as $detalhe) {
+                $salvarDetalhe = new DetalhesExperiencias();
+                $salvarDetalhe->detalhes = $detalhe;
+                $salvarDetalhe->experiencias_id = $id;
+                $salvarDetalhe->save();
+            }
+            if ($salvarDetalhe) {
+                return redirect()->route('experiencias');
+            }
         }
     }
     public function viewExperiencias()
@@ -105,6 +143,7 @@ class adminController extends Controller
         $empresas = [];
 
         foreach ($experiencias as $experiencia) {
+            $empresas['id'] = $experiencia->id;
             $empresas['empresa'] = $experiencia->empresa;
             $empresas['cidade'] = $experiencia->cidade;
             $empresas['estado'] = $experiencia->estado;
@@ -150,10 +189,62 @@ class adminController extends Controller
 
         return redirect()->route('admin');
     }
+
+    public function createExperiencias(Request $request)
+    {
+        $params = $request->all();
+        $userId = Auth::id();
+
+        $v = Validator::make($request->all(), [
+            'empresa' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+            'cargo' => 'required',
+            'inicio' => 'required',
+            'fim' => 'required',
+            "detalhe.*"  => "required|string|distinct",
+        ]);
+
+        $erros = [];
+        if ($v->fails()) {
+            foreach ($v->errors()->messages() as $messages) {
+                $erros[] = $messages;
+            }
+            return Redirect::back()->withErrors($erros);
+        }
+        $experiencias = new Experiencias();
+        $experiencias->empresa = $params['empresa'];
+        $experiencias->cidade = $params['cidade'];
+        $experiencias->estado = $params['estado'];
+        $experiencias->usuario_id = $userId;
+        $experiencias->cargo = $params['cargo'];
+        $experiencias->inicio = $params['inicio'];
+        $experiencias->fim = $params['fim'];
+        $experiencias->save();
+
+        if ($experiencias) {
+            foreach ($params['detalhe'] as $detalhe) {
+                $salvarDetalhe = new DetalhesExperiencias();
+                $salvarDetalhe->detalhes = $detalhe;
+                $salvarDetalhe->experiencias_id = $experiencias->id;
+                $salvarDetalhe->save();
+            }
+            if ($salvarDetalhe) {
+                return redirect()->route('experiencias');
+            }
+
+            return redirect()->route('admin');
+        }
+    }
     public function projectCreate()
     {
         $categorias = Categorias::get();
         return view('/create', compact('categorias'));
+    }
+
+    public function experienciasCreate()
+    {
+        return view('/create_experiencias');
     }
 
     /**

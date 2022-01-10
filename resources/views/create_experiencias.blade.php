@@ -10,58 +10,44 @@
                             {{ $errors->first() }}
                         </div>
                     @endif
-                    <div class="panel-heading">Alterar Experiência</div>
+                    <div class="panel-heading">Adicionar Experiência</div>
 
                     <div class="panel-body">
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        <form action="/admin/experiencias/update/{{ $empresas['id'] }}" method="post" role="form">
+
+                        <form action="/admin/experiencias/create" method="post" role="form">
                             {{ csrf_field() }}
 
                             <div class="form-group">
                                 <label for="empresa">Empresa</label>
                                 <input type="text" class="form-control" id="empresa" name="empresa"
-                                    aria-describedby="empresa" value="{{ $empresas['empresa'] }}">
+                                    aria-describedby="empresa" value="">
 
                             </div>
                             <div class="form-group">
                                 <label for="cidade">Cidade</label>
-                                <textarea class="form-control" id="cidade"
-                                    name="cidade">{{ $empresas['cidade'] }}</textarea>
+                                <textarea class="form-control" id="cidade" name="cidade"></textarea>
 
                             </div>
                             <div class="form-group">
                                 <label for="estado">Estado</label>
-                                <input type="estado" class="form-control" id="estado" name="estado"
-                                    value="{{ $empresas['estado'] }}">
+                                <input type="estado" class="form-control" id="estado" name="estado" value="">
                             </div>
                             <div class="form-group">
                                 <label for="cargo">Cargo</label>
-                                <input type="text" class="form-control" id="cargo" name="cargo"
-                                    value="{{ $empresas['cargo'] }}">
+                                <input type="text" class="form-control" id="cargo" name="cargo" value="">
                             </div>
 
                             <div class="form-group">
                                 <label for="inicio">Inicio na empresa</label>
-                                <input type="date" class="form-control" id="inicio" name="inicio"
-                                    value="{{ $empresas['inicio'] }}">
+                                <input type="date" class="form-control" id="inicio" name="inicio" value="">
                             </div>
                             <div class="form-group">
                                 <label for="fim">Fim na empresa</label>
-                                <input type="date" class="form-control" id="fim" name="fim"
-                                    value="{{ $empresas['fim'] }}">
+                                <input type="date" class="form-control" id="fim" name="fim" value="">
                             </div>
                             <i id="teste" class="fas fa-plus-square">
                                 <label for="detalhe">Detalhes</label> </i>
-                            @foreach ($empresas['detalhes'] as $detalhe)
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="detalhe['{{ $detalhe }}']"
-                                        value="{{ $detalhe }}">
-                                </div>
-                            @endforeach
+                            <div class="form-group"><input type="text" class="form-control" name="detalhe[0]"></div>
                             <div id="detalhesArea">
                             </div>
                             <button type="submit" class="btn btn-primary">Salvar</button>

@@ -13,6 +13,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <label id="adminLabel">Painel de experiências</label>
+                    <div id="botoes" class="float-right" style="margin-bottom: 10px;">
+                        <a class="btn btn-primary" href="{{ url('/admin/createExperiencias') }}"
+                            role="button">Adicionar</a>
+                    </div>
                     <div class="panel-body">
                         <table class="table table-hover responsive display" style="width:100%" id="tableExperiencia">
                             <thead>
