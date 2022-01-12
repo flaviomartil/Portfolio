@@ -1,12 +1,15 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
                     <div class="panel-heading">Alterar Sobre Mim</div>
-
                     <div class="panel-body">
                         @if (session('status'))
                             <div class="alert alert-success">
@@ -20,8 +23,26 @@
                                 <label for="nome">Nome completo</label>
                                 <input type="text" class="form-control" id="nome" name="nome" aria-describedby="nome"
                                     value="{{ $about->nome }}">
-
                             </div>
+
+                            <div class="form-group">
+                                <label for="nome">Mensagem topo</label>
+                                <input type="text" class="form-control" id="msgTopo" name="msgTopo"
+                                    aria-describedby="nome" value="{{ $about->msgTopo }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nome">Mensagem Digitada/Apagada</label>
+                                <input type="text" class="form-control" id="msgDigitada" name="msgDigitada"
+                                    aria-describedby="nome" value="{{ $about->msgDigitada }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nome">Mensagem Principal</label>
+                                <input type="text" class="form-control" id="msgPrincipal" name="msgPrincipal"
+                                    aria-describedby="nome" value="{{ $about->msgPrincipal }}">
+                            </div>
+
                             <div class="form-group">
                                 <label for="website">Website</label>
                                 <textarea class="form-control" id="website" name="website"

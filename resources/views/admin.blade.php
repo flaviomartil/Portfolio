@@ -17,8 +17,6 @@
                         style="margin-bottom: 18.8px;margin-top: 14.3px;margin-left: 10px;">
                         <a class="btn btn-primary" href="{{ url('/admin/CreateProject') }}" role="button">Criar
                             projeto</a>
-                        <a class="btn btn-warning" href="{{ url('/admin/EditAbout') }}" role="button">Editar
-                            Sobre mim</a>
                     </div>
                     <div class="panel-body">
                         <table class="table table-hover responsive display" style="width:100%" id="tableAdmin">

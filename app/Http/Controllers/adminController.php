@@ -42,18 +42,63 @@ class adminController extends Controller
             ->get();
         return $projetos;
     }
+
     public function editAbout()
     {
         $about = SobreMim::findOrFail(1);
         return view('edit_about', compact('about'));
     }
+
+    public function editCompetencias()
+    {
+        $competencias = Competencias::where('usuario_id', 1)->get();
+        return view('edit_competencias', compact('competencias'));
+    }
+
+    public function SaveCompetencias(Request $request)
+    {
+        $id = 1;
+        $params = $request->all();
+        $competencias = Competencias::where('usuario_id', 1)->get();
+
+
+        $v = Validator::make($request->all(), [
+            "detalhes.*"  => "required|string|distinct",
+        ]);
+
+        $erros = [];
+        if ($v->fails()) {
+            foreach ($v->errors()->messages() as $messages) {
+                $erros[] = $messages;
+            }
+            return Redirect::back()->withErrors($erros);
+        }
+
+        if (count($competencias)) {
+            foreach ($competencias as $competencia) {
+                $competencia->delete();
+            }
+        }
+
+        foreach ($params['detalhes'] as $detalhe) {
+            $salvarDetalhe = new Competencias();
+            $salvarDetalhe->detalhes = $detalhe;
+            $salvarDetalhe->usuario_id = $id;
+            $salvarDetalhe->save();
+        }
+        if ($salvarDetalhe) {
+            return redirect()->route('admin');
+        }
+    }
+
     public function SaveAbout(Request $request)
     {
         $id = 1;
         $about = SobreMim::findOrFail($id);
         $about->nome = $request->nome;
+        $about->msgTopo = $request->msgTopo;
+        $about->msgDigitada = $request->msgDigitada;
         $about->website = $request->website;
-        $about->telefone = $request->telefone;
         $about->telefone = $request->telefone;
         $about->cidade_atual = $request->cidade_atual;
         $about->idade = $request->idade;
@@ -62,8 +107,34 @@ class adminController extends Controller
         $about->freelance_status = $request->freelance_status;
         $about->aniversario = $request->aniversario;
         $about->endereco = $request->endereco;
-        $about->cep = $request->cep;
+        $about->cep = isset($request->cep) ? $request->cep : null;
         $about->resumo = $request->resumo;
+        $about->msgPrincipal = $request->msgPrincipal;
+
+        $v = Validator::make($request->all(), [
+            'nome' => 'required',
+            'website' => 'required',
+            'telefone' => 'required',
+            'cidade_atual' => 'required',
+            'idade' => 'required',
+            'email' => 'required',
+            'email_profissional' => 'required',
+            'freelance_status' => 'required',
+            'aniversario' => 'required',
+            'endereco' => 'required',
+            'resumo' => 'required',
+            'msgPrincipal' => 'required',
+            'msgDigitada' => 'required',
+            'msgTopo' => 'required',
+        ]);
+
+        $erros = [];
+        if ($v->fails()) {
+            foreach ($v->errors()->messages() as $messages) {
+                $erros[] = $messages;
+            }
+            return Redirect::back()->withErrors($erros);
+        }
 
 
         if ($about->save()) {

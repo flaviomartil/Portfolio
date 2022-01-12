@@ -99,7 +99,8 @@
         <div class="hero-container" data-aos="fade-in">
 
             <h1>{{ $data['sobreMim']->nome }}</h1>
-            <p>Eu sou programador <span class="typed" data-typed-items=" PHP, Laravel, C#"></span></p>
+            <p>{{ $data['sobreMim']->msgTopo }} <span class="typed"
+                    data-typed-items="{{ $data['sobreMim']->msgDigitada }}"></span></p>
         </div>
     </section><!-- End Hero -->
 
@@ -111,7 +112,7 @@
 
                 <div class="section-title">
                     <h2>Sobre mim</h2>
-                    <p>Seja bem vindo ao meu site, quer saber mais sobre mim? Confira abaixo:</p>
+                    <p>{{ $data['sobreMim']->msgPrincipal }}</p>
                 </div>
 
                 <div class="row">
@@ -124,9 +125,6 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <ul>
-
-
-
                                     <li><i class="icofont-rounded-right"></i> <strong>Aniversário:</strong>
                                         {{ $data['sobreMim']->aniversario }}</li>
 

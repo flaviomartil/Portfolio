@@ -26,8 +26,11 @@ class CreateSobreMimsTable extends Migration
             $table->string('freelance_status');
             $table->date('aniversario');
             $table->string('endereco');
-            $table->string('cep');
+            $table->string('cep')->nullable();
             $table->string('resumo');
+            $table->string('msgPrincipal');
+            $table->string('msgTopo');
+            $table->string('msgDigitada');
             $table->timestamps();
         });
     }

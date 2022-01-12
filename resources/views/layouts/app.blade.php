@@ -21,6 +21,7 @@
     <link href="{{ url('/vendor/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ url('/css/style.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -41,11 +42,19 @@
                     <a class="nav-link" href="/admin">Projetos<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item {{ Request::is('admin/experiencias') ? 'active' : '' }}">
-                    <a class="nav-link" href="/admin/experiencias">Experiencias<span
+                    <a class="nav-link" href="/admin/experiencias">Experiências<span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item {{ Request::is('admin/educacao') ? 'active' : '' }}">
                     <a class="nav-link" href="/admin/educacao">Escolaridade<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item {{ Request::is('admin/EditAbout') ? 'active' : '' }}">
+                    <a class="nav-link" href="/admin/EditAbout">Sobre Mim<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item {{ Request::is('admin/EditCompetencias') ? 'active' : '' }}">
+                    <a class="nav-link" href="/admin/EditCompetencias">Competências<span
                             class="sr-only">(current)</span></a>
                 </li>
 
