@@ -72,6 +72,135 @@ class adminController extends Controller
             return redirect()->route('admin');
         }
     }
+
+    public function listarEducacao()
+    {
+        $educacoes = Educacao::orderBy('inicio')->get();
+
+        foreach ($educacoes as $educacao) {
+            $inicio = strtotime($educacao->inicio);
+            $inicio = date('d/m/Y', $inicio);
+            $fim = strtotime($educacao->fim);
+            $fim = date('d/m/Y', $fim);
+            $educacao->inicio = $inicio;
+            $educacao->fim = $fim;
+        }
+
+        return $educacoes;
+    }
+
+    public function viewEducacoes()
+    {
+        return view('educacao');
+    }
+
+    public function destroyEducacaoes(Request $request)
+    {
+        $params = $request->all();
+        $educacao = Educacao::findOrFail($params['id']);
+        if ($educacao) {
+            $educacao->delete();
+            $educacao->delete();
+            return redirect()->route('educacao');
+        } else {
+            return redirect()->route('educacao');
+        }
+    }
+
+    public function educacaoCView()
+    {
+        return view('create_educacao');
+    }
+
+    public function createEducacao(Request $request)
+    {
+        $params = $request->all();
+        $userId = Auth::id();
+
+        $v = Validator::make($request->all(), [
+            'escola' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+            'tipo' => 'required',
+            'inicio' => 'required',
+            'fim' => 'required',
+        ]);
+
+        $erros = [];
+        if ($v->fails()) {
+            foreach ($v->errors()->messages() as $messages) {
+                $erros[] = $messages;
+            }
+            return Redirect::back()->withErrors($erros);
+        }
+
+        $educacao = new Educacao();
+        $educacao->escola = $params['escola'];
+        $educacao->cidade = $params['cidade'];
+        $educacao->estado = $params['estado'];
+        $educacao->usuario_id = $userId;
+        $educacao->tipo = $params['tipo'];
+        $educacao->inicio = $params['inicio'];
+        $educacao->fim = $params['fim'];
+        $educacao->save();
+
+        if ($educacao) {
+            return redirect()->route('educacao')->with(['sucess' => 'Ensino adicionado ao portfolio']);
+        }
+        return redirect()->route('admin');
+    }
+
+    public function showEducacao($id)
+    {
+        $educacoes = Educacao::orderBy('inicio')->where('id', $id)->get();
+        $escolaridade = [];
+        foreach ($educacoes as $educacao) {
+            $escolaridade['id'] = $educacao->id;
+            $escolaridade['escola'] = $educacao->escola;
+            $escolaridade['cidade'] = $educacao->cidade;
+            $escolaridade['estado'] = $educacao->estado;
+            $escolaridade['tipo'] = $educacao->tipo;
+            $escolaridade['inicio'] = $educacao->inicio;
+            $escolaridade['fim'] = $educacao->fim;
+        }
+        return view('/edit_educacao', compact('escolaridade'));
+    }
+
+    public function saveEducacao(Request $request)
+    {
+        $params = $request->all();
+        $id = $request->route('id');
+        $educacao = Educacao::findOrfail($id);
+        $v = Validator::make($request->all(), [
+            'escola' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+            'tipo' => 'required',
+            'inicio' => 'required',
+            'fim' => 'required',
+        ]);
+
+        $erros = [];
+        if ($v->fails()) {
+            foreach ($v->errors()->messages() as $messages) {
+                $erros[] = $messages;
+            }
+            return Redirect::back()->withErrors($erros);
+        }
+
+        $educacao->escola = $params['escola'];
+        $educacao->cidade = $params['cidade'];
+        $educacao->estado = $params['estado'];
+        $educacao->tipo = $params['tipo'];
+        $educacao->inicio = $params['inicio'];
+        $educacao->fim = $params['fim'];
+
+
+        if ($educacao->save()) {
+            return redirect()->route('educacao');
+        }
+    }
+
     public function saveExperiencias(Request $request)
     {
         $params = $request->all();
@@ -102,9 +231,8 @@ class adminController extends Controller
         $experiencias->cargo = $params['cargo'];
         $experiencias->inicio = $params['inicio'];
         $experiencias->fim = $params['fim'];
-        $experiencias->save();
 
-        if ($experiencias) {
+        if ($experiencias->save()) {
             foreach ($params['detalhe'] as $detalhe) {
                 $salvarDetalhe = new DetalhesExperiencias();
                 $salvarDetalhe->detalhes = $detalhe;
@@ -116,6 +244,7 @@ class adminController extends Controller
             }
         }
     }
+
     public function viewExperiencias()
     {
         return view('experiencias');
@@ -135,6 +264,7 @@ class adminController extends Controller
 
         return $experiencias;
     }
+
 
     public function showExperiencias($id)
     {
@@ -157,6 +287,7 @@ class adminController extends Controller
 
         return view('/edit_experiencias', compact('empresas'));
     }
+
     public function destroyExperiencias(Request $request)
     {
         $params = $request->all();
@@ -230,12 +361,13 @@ class adminController extends Controller
                 $salvarDetalhe->save();
             }
             if ($salvarDetalhe) {
-                return redirect()->route('experiencias');
+                return redirect()->route('experiencias')->with(['sucess' => 'Experiência e detalhes criados com sucesso']);
             }
 
             return redirect()->route('admin');
         }
     }
+
     public function projectCreate()
     {
         $categorias = Categorias::get();

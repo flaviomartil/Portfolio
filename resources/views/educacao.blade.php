@@ -17,20 +17,19 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <label id="adminLabel">Painel de experiências</label>
+                    <label id="adminLabel">Painel de Escolaridade</label>
                     <div id="botoes" class="float-right" style="margin-bottom: 10px;">
-                        <a class="btn btn-primary" href="{{ url('/admin/createExperiencias') }}"
-                            role="button">Adicionar</a>
+                        <a class="btn btn-primary" href="{{ url('/admin/createEducacao') }}" role="button">Adicionar</a>
                     </div>
                     <div class="panel-body">
-                        <table class="table table-hover responsive display" style="width:100%" id="tableExperiencia">
+                        <table class="table table-hover responsive display" style="width:100%" id="tableEducacao">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Empresa</th>
+                                    <th>Escola</th>
                                     <th>Cidade</th>
                                     <th>Estado </th>
-                                    <th>Cargo</th>
+                                    <th>Tipo</th>
                                     <th>Inicio</th>
                                     <th>Fim</th>
                                     <th>Ações</th>
@@ -79,7 +78,7 @@
     }
 
 </style>
-<script src="{{ asset('js/experiencias.js') }}"></script>
+<script src="{{ asset('js/educacao.js') }}"></script>
 <!-- Toast CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
     integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
