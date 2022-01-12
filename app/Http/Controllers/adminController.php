@@ -63,6 +63,7 @@ class adminController extends Controller
 
 
         $v = Validator::make($request->all(), [
+            "detalhes"  => "required|distinct",
             "detalhes.*"  => "required|string|distinct",
         ]);
 
