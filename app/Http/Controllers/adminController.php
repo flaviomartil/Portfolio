@@ -9,6 +9,7 @@ use App\Categorias;
 use App\SobreMim;
 use App\Competencias;
 use App\Educacao;
+use App\FluxoTrabalhos;
 use App\Experiencias;
 use App\DetalhesExperiencias;
 use Illuminate\Http\Request;
@@ -45,10 +46,52 @@ class adminController extends Controller
 
     public function editAbout()
     {
-        $about = SobreMim::findOrFail(1);
+        $about = SobreMim::all()->first();
         return view('edit_about', compact('about'));
     }
 
+    public function editFluxoTrabalhos()
+    {
+        $fluxoTrabalhos = FluxoTrabalhos::where('usuario_id', 1)->get();
+        return view('edit_fluxos', compact('fluxoTrabalhos'));
+    }
+
+    public function SaveFluxoTrabalhos(Request $request)
+    {
+        $id = 1;
+        $params = $request->all();
+        $fluxoTrabalhos = FluxoTrabalhos::where('usuario_id', 1)->get();
+
+
+        $v = Validator::make($request->all(), [
+            "detalhes"  => "required|distinct",
+            "detalhes.*"  => "required|string|distinct",
+        ]);
+
+        $erros = [];
+        if ($v->fails()) {
+            foreach ($v->errors()->messages() as $messages) {
+                $erros[] = $messages;
+            }
+            return Redirect::back()->withErrors($erros);
+        }
+
+        if (count($fluxoTrabalhos)) {
+            foreach ($fluxoTrabalhos as $fluxoTrabalho) {
+                $fluxoTrabalho->delete();
+            }
+        }
+
+        foreach ($params['detalhes'] as $detalhe) {
+            $salvarDetalhe = new FluxoTrabalhos();
+            $salvarDetalhe->detalhes = $detalhe;
+            $salvarDetalhe->usuario_id = $id;
+            $salvarDetalhe->save();
+        }
+        if ($salvarDetalhe) {
+            return redirect()->route('admin');
+        }
+    }
     public function editCompetencias()
     {
         $competencias = Competencias::where('usuario_id', 1)->get();
@@ -94,23 +137,7 @@ class adminController extends Controller
 
     public function SaveAbout(Request $request)
     {
-        $id = 1;
-        $about = SobreMim::findOrFail($id);
-        $about->nome = $request->nome;
-        $about->msgTopo = $request->msgTopo;
-        $about->msgDigitada = $request->msgDigitada;
-        $about->website = $request->website;
-        $about->telefone = $request->telefone;
-        $about->cidade_atual = $request->cidade_atual;
-        $about->idade = $request->idade;
-        $about->email = $request->email;
-        $about->email_profissional = $request->email_profissional;
-        $about->freelance_status = $request->freelance_status;
-        $about->aniversario = $request->aniversario;
-        $about->endereco = $request->endereco;
-        $about->cep = isset($request->cep) ? $request->cep : null;
-        $about->resumo = $request->resumo;
-        $about->msgPrincipal = $request->msgPrincipal;
+        $abouts = SobreMim::all();
 
         $v = Validator::make($request->all(), [
             'nome' => 'required',
@@ -136,6 +163,28 @@ class adminController extends Controller
             }
             return Redirect::back()->withErrors($erros);
         }
+
+        if (count($abouts)) {
+            foreach ($abouts as $about) {
+                $about->delete();
+            }
+        }
+        $about = new SobreMim();
+        $about->nome = $request->nome;
+        $about->msgTopo = $request->msgTopo;
+        $about->msgDigitada = $request->msgDigitada;
+        $about->website = $request->website;
+        $about->telefone = $request->telefone;
+        $about->cidade_atual = $request->cidade_atual;
+        $about->idade = $request->idade;
+        $about->email = $request->email;
+        $about->email_profissional = $request->email_profissional;
+        $about->freelance_status = $request->freelance_status;
+        $about->aniversario = $request->aniversario;
+        $about->endereco = $request->endereco;
+        $about->cep = isset($request->cep) ? $request->cep : null;
+        $about->resumo = $request->resumo;
+        $about->msgPrincipal = $request->msgPrincipal;
 
 
         if ($about->save()) {

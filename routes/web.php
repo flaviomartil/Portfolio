@@ -29,6 +29,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['checkAdmin']], function ()
     Route::get('/EditCompetencias', 'adminController@EditCompetencias');
     Route::post('/EditCompetencias/update', 'adminController@SaveCompetencias');
 
+    //Rotas Fluxo de trabalho
+    Route::get('/FluxoTrabalhos', 'adminController@EditFluxoTrabalhos');
+    Route::post('/EditFluxoTrabalhos/update', 'adminController@SaveFluxoTrabalhos');
+
     // Rotas Projetos
     Route::post('/editnow/{id}', 'adminController@update');
     Route::post('/createNow', 'adminController@create');

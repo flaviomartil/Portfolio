@@ -10,24 +10,24 @@
                             {{ $errors->first() }}
                         </div>
                     @endif
-                    <div class="panel-heading">Alterar Competências</div>
+                    <div class="panel-heading">Alterar Fluxo de trabalho</div>
                     <div class="panel-body">
                         @if (session('status'))
                             <div class="alert alert-success">
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form action="/admin/EditCompetencias/update" method="post" role="form">
+                        <form action="/admin/EditFluxoTrabalhos/update" method="post" role="form">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <i id="teste" class="fas fa-plus-square">
                                     <label for="detalhe">Competências</label> </i>
-                                @if (count($competencias))
-                                    @foreach ($competencias as $competencia)
+                                @if (count($fluxoTrabalhos))
+                                    @foreach ($fluxoTrabalhos as $fluxo)
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                name="detalhes['{{ $competencia->id + 10 }}']" aria-describedby="nome"
-                                                value="{{ $competencia->detalhes }}">
+                                                name="detalhes['{{ $fluxo->id + 10 }}']" aria-describedby="nome"
+                                                value="{{ $fluxo->detalhes }}">
                                         </div>
                                     @endforeach
                                 @else

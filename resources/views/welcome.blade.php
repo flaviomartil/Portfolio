@@ -129,7 +129,8 @@
                                         {{ $data['sobreMim']->aniversario }}</li>
 
                                     <li><i class="icofont-rounded-right"></i> <strong>Website:</strong>
-                                        {{ $data['sobreMim']->website }}</li>
+                                        <a href>{{ $data['sobreMim']->website }}</a>
+                                    </li>
                                     <li><i class="icofont-rounded-right"></i> <strong>Telefone:</strong>
                                         {{ $data['sobreMim']->telefone }}</li>
                                     <li><i class="icofont-rounded-right"></i> <strong>Cidade:</strong>
@@ -202,19 +203,12 @@
 
                 <div class="subheading mb-3">Fluxo de trabalho</div>
                 <ul class="fa-ul mb-0">
-
-                    <li>
-                        <i class="fa-li fa fa-check"></i>
-                        Teste em Navegadores &amp; Depuração
-                    </li>
-                    <li>
-                        <i class="fa-li fa fa-check"></i>
-                        Equipes Multifuncionais
-                    </li>
-                    <li>
-                        <i class="fa-li fa fa-check"></i>
-                        Desenvolvimento Ágil com Scrum/ITIL
-                    </li>
+                    @foreach ($data['fluxoTrabalhos'] as $fluxo)
+                        <li>
+                            <i class="fa-li fa fa-check"></i>
+                            {{ $fluxo->detalhes }}
+                        </li>
+                    @endforeach
                 </ul>
             </div>
 

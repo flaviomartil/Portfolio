@@ -57,6 +57,10 @@
                     <a class="nav-link" href="/admin/EditCompetencias">Competências<span
                             class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item {{ Request::is('admin/FluxoTrabalhos') ? 'active' : '' }}">
+                    <a class="nav-link" href="/admin/FluxoTrabalhos">Fluxo de trabalho<span
+                            class="sr-only">(current)</span></a>
+                </li>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 </div>

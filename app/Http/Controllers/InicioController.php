@@ -11,6 +11,7 @@ use App\Competencias;
 use App\Educacao;
 use App\Experiencias;
 use App\DetalhesExperiencias;
+use App\FluxoTrabalhos;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use stdClass;
@@ -37,7 +38,7 @@ class InicioController extends Controller
     }
     if (count($projetos) > 0) {
       // Todos os dados da model SobreMim
-      $sobreMim = SobreMim::findOrFail(1);
+      $sobreMim = SobreMim::first();
       if ($sobreMim) {
         $sobreMim->aniversario = date("d/m/Y", strtotime($sobreMim->aniversario));
         $competencias = Competencias::where('usuario_id', 1)->get();
@@ -47,7 +48,7 @@ class InicioController extends Controller
         $descricao = [];
         $experiencias = Experiencias::orderBy('inicio')->get();
         $detalhes = DetalhesExperiencias::get();
-
+        $fluxoTrabalhos = FluxoTrabalhos::get();
         foreach ($experiencias as $experiencia) {
           $empresas[$experiencia->id]['empresa'] = $experiencia->empresa;
           $empresas[$experiencia->id]['cidade'] = $experiencia->cidade;
@@ -56,7 +57,11 @@ class InicioController extends Controller
           $inicio = strtotime($experiencia->inicio);
           $inicio = date('d/m/Y', $inicio);
           $fim = strtotime($experiencia->fim);
-          $fim = date('d/m/Y', $fim);
+          if ($experiencia->fim) {
+            $fim = date('d/m/Y', $fim);
+          } else {
+            $fim = 'Atualmente';
+          }
           $empresas[$experiencia->id]['inicio'] = $inicio;
           $empresas[$experiencia->id]['fim'] = $fim;
         }
@@ -80,7 +85,8 @@ class InicioController extends Controller
           'sobreMim' => $sobreMim,
           'competencias' => $competencias,
           'educacao' => $ensino,
-          'empresas' => $empresas
+          'empresas' => $empresas,
+          'fluxoTrabalhos' => $fluxoTrabalhos
         ];
         return view('welcome', compact('data'));
       }

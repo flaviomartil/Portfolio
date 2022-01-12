@@ -18,87 +18,164 @@
                         @endif
                         <form action="/admin/EditAbout/update" method="post" role="form">
                             {{ csrf_field() }}
+                            @if (isset($about))
+                                <div class="form-group">
+                                    <label for="nome">Nome completo</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="nome"
+                                        value="{{ $about->nome }}">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="nome">Nome completo</label>
-                                <input type="text" class="form-control" id="nome" name="nome" aria-describedby="nome"
-                                    value="{{ $about->nome }}">
-                            </div>
+                                <div class="form-group">
+                                    <label for="nome">Mensagem topo</label>
+                                    <input type="text" class="form-control" id="msgTopo" name="msgTopo"
+                                        aria-describedby="nome" value="{{ $about->msgTopo }}">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="nome">Mensagem topo</label>
-                                <input type="text" class="form-control" id="msgTopo" name="msgTopo"
-                                    aria-describedby="nome" value="{{ $about->msgTopo }}">
-                            </div>
+                                <div class="form-group">
+                                    <label for="nome">Mensagem Digitada/Apagada</label>
+                                    <input type="text" class="form-control" id="msgDigitada" name="msgDigitada"
+                                        aria-describedby="nome" value="{{ $about->msgDigitada }}">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="nome">Mensagem Digitada/Apagada</label>
-                                <input type="text" class="form-control" id="msgDigitada" name="msgDigitada"
-                                    aria-describedby="nome" value="{{ $about->msgDigitada }}">
-                            </div>
+                                <div class="form-group">
+                                    <label for="nome">Mensagem Principal</label>
+                                    <input type="text" class="form-control" id="msgPrincipal" name="msgPrincipal"
+                                        aria-describedby="nome" value="{{ $about->msgPrincipal }}">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="nome">Mensagem Principal</label>
-                                <input type="text" class="form-control" id="msgPrincipal" name="msgPrincipal"
-                                    aria-describedby="nome" value="{{ $about->msgPrincipal }}">
-                            </div>
+                                <div class="form-group">
+                                    <label for="website">Website</label>
+                                    <textarea class="form-control" id="website" name="website"
+                                        aria-describedby="emailHelp">{{ $about->website }}</textarea>
 
-                            <div class="form-group">
-                                <label for="website">Website</label>
-                                <textarea class="form-control" id="website" name="website"
-                                    aria-describedby="emailHelp">{{ $about->website }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="celphone" class="form-control" id="telefone" name="telefone"
+                                        value="{{ $about->telefone }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cidade_atual">Cidade atual</label>
+                                    <input type="text" class="form-control" id="cidade_atual" name="cidade_atual"
+                                        value="{{ $about->cidade_atual }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="idade">Idade</label>
+                                    <input type="number" class="form-control" id="idade" name="idade"
+                                        value="{{ $about->idade }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                        value="{{ $about->email }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email_profissional">Email profissional</label>
+                                    <input type="text" class="form-control" id="email_profissional"
+                                        name="email_profissional" value="{{ $about->email_profissional }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="freelance_status">Freelance status</label>
+                                    <input type="text" class="form-control" id="freelance_status" name="freelance_status"
+                                        value="{{ $about->freelance_status }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="aniversario">Aniversário</label>
+                                    <input type="date" class="form-control" id="aniversario" name="aniversario"
+                                        value="{{ $about->aniversario }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="endereco">Endereço</label>
+                                    <input type="text" class="form-control" id="endereco" name="endereco"
+                                        value="{{ $about->endereco }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cep">Cep</label>
+                                    <input type="text" class="form-control" id="cep" name="cep"
+                                        value="{{ $about->cep }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="resumo">Resumo</label>
+                                    <input type="text" class="form-control" id="resumo" name="resumo"
+                                        value="{{ $about->resumo }}">
+                                </div>
+                            @else
+                                <div class="form-group">
+                                    <label for="nome">Nome completo</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="nome"
+                                        value="">
+                                </div>
 
-                            </div>
-                            <div class="form-group">
-                                <label for="telefone">Telefone</label>
-                                <input type="celphone" class="form-control" id="telefone" name="telefone"
-                                    value="{{ $about->telefone }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="cidade_atual">Cidade atual</label>
-                                <input type="text" class="form-control" id="cidade_atual" name="cidade_atual"
-                                    value="{{ $about->cidade_atual }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="idade">Idade</label>
-                                <input type="number" class="form-control" id="idade" name="idade"
-                                    value="{{ $about->idade }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" name="email"
-                                    value="{{ $about->email }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="email_profissional">Email profissional</label>
-                                <input type="text" class="form-control" id="email_profissional" name="email_profissional"
-                                    value="{{ $about->email_profissional }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="freelance_status">Freelance status</label>
-                                <input type="text" class="form-control" id="freelance_status" name="freelance_status"
-                                    value="{{ $about->freelance_status }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="aniversario">Aniversário</label>
-                                <input type="date" class="form-control" id="aniversario" name="aniversario"
-                                    value="{{ $about->aniversario }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="endereco">Endereço</label>
-                                <input type="text" class="form-control" id="endereco" name="endereco"
-                                    value="{{ $about->endereco }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="cep">Cep</label>
-                                <input type="text" class="form-control" id="cep" name="cep" value="{{ $about->cep }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="resumo">Resumo</label>
-                                <input type="text" class="form-control" id="resumo" name="resumo"
-                                    value="{{ $about->resumo }}">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Alterar Projeto</button>
+                                <div class="form-group">
+                                    <label for="nome">Mensagem topo</label>
+                                    <input type="text" class="form-control" id="msgTopo" name="msgTopo"
+                                        aria-describedby="nome" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nome">Mensagem Digitada/Apagada</label>
+                                    <input type="text" class="form-control" id="msgDigitada" name="msgDigitada"
+                                        aria-describedby="nome" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nome">Mensagem Principal</label>
+                                    <input type="text" class="form-control" id="msgPrincipal" name="msgPrincipal"
+                                        aria-describedby="nome" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="website">Website</label>
+                                    <textarea class="form-control" id="website" name="website"
+                                        aria-describedby="emailHelp"></textarea>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="celphone" class="form-control" id="telefone" name="telefone" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cidade_atual">Cidade atual</label>
+                                    <input type="text" class="form-control" id="cidade_atual" name="cidade_atual"
+                                        value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="idade">Idade</label>
+                                    <input type="number" class="form-control" id="idade" name="idade" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email_profissional">Email profissional</label>
+                                    <input type="text" class="form-control" id="email_profissional"
+                                        name="email_profissional" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="freelance_status">Freelance status</label>
+                                    <input type="text" class="form-control" id="freelance_status" name="freelance_status"
+                                        value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="aniversario">Aniversário</label>
+                                    <input type="date" class="form-control" id="aniversario" name="aniversario" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="endereco">Endereço</label>
+                                    <input type="text" class="form-control" id="endereco" name="endereco" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cep">Cep</label>
+                                    <input type="text" class="form-control" id="cep" name="cep" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="resumo">Resumo</label>
+                                    <input type="text" class="form-control" id="resumo" name="resumo" value="">
+                                </div>
+                            @endif
+
+                            <button type="submit" class="btn btn-primary">Alterar</button>
                         </form>
                     </div>
                 </div>

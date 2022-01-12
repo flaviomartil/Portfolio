@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Experiencias extends Migration
+class FluxoTrabalhos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class Experiencias extends Migration
      */
     public function up()
     {
-        Schema::create('experiencias', function (Blueprint $table) {
+        Schema::create('fluxo_trabalhos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('usuario_id')->unsigned()->index();
-            $table->string('empresa');
-            $table->string('cidade');
-            $table->string('estado');
-            $table->string('cargo');
-            $table->date('inicio');
-            $table->date('fim')->nullable();
+            $table->string('detalhes');
             $table->foreign('usuario_id')->references('id')->on('users');
             $table->timestamps();
         });
