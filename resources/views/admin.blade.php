@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer></script>
+<script src="{{ asset('js/datatable.min.js') }}"></script>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
@@ -72,7 +72,6 @@
         word-wrap: break-word;
         overflow-wrap: break-word;
     }
-
 </style>
 <script src="{{ asset('js/admin.js') }}"></script>
 <!-- Toast CSS -->
